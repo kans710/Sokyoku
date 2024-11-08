@@ -7,6 +7,43 @@ st.set_page_config(page_title="Sokyoku-Chat with multiple PDFs", page_icon="🤖
 st.markdown(
     """
     <style>
+    /* Import Poppins font from Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+    /* Apply Poppins font to the entire app */
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+    /* Style for the line with circles */
+    .line-with-circles {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0; /* Adjust spacing as needed */
+    }
+
+    .line-with-circles::before,
+    .line-with-circles::after {
+        content: '';
+        flex: 1;
+        height: 2px;
+        background-color: #ffffff;
+    }
+
+    .circle {
+        width: 8px; /* Circle diameter */
+        height: 8px;
+        margin: 0 10px; /* Spacing between the circles */
+        background-color: #ffffff;
+        border-radius: 50%;
+    }
+    /* Center-align the title and adjust font for clarity */
+    .app-title {
+        text-align: center;
+        color: #ffffff;
+        font-size: 2em;
+        font-family: 'Poppins', sans-serif;
+    }
     /* Apply a translucent gradient background to the main app area */
     .stApp {
         # background: linear-gradient(135deg, rgba(30, 30, 50, 0.8), rgba(10, 10, 20, 0.8));
@@ -20,7 +57,7 @@ st.markdown(
         background-color: radial-gradient(#e66465, #9198e5);
         border-radius: 15px;
         padding: 20px;
-        background: rgba( 255, 255, 255, 0.05 );
+        background: rgba( 255, 255, 255, 0 );
         box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
         backdrop-filter: blur( 4px );
         -webkit-backdrop-filter: blur( 4px );
@@ -35,6 +72,17 @@ st.markdown(
         text-align: center;
         
     }
+    /* Style the text input box */
+    input[type="text"] {
+        background-color: rgba(8, 26, 50, 0.5); /* Adjust transparency here */
+        color: #ffffff; /* Text color */
+        border-radius: 8px;
+        padding: 10px;
+        font-family: 'Poppins', sans-serif;
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Optional border for glass effect */
+        backdrop-filter: blur(8px); /* Blur for glass effect */
+        -webkit-backdrop-filter: blur(8px); /* Safari support */
+    }
 
     /* Style file uploader box */
     .stFileUploader {
@@ -42,9 +90,6 @@ st.markdown(
         color: #ffffff;
         border-radius: 8px;
         padding: 10px;
-        border-style:solid;
-        border-width:1px;
-        border-color: #ffffff
     }
     .stFileUploader>button {
         background-color: rgba(60, 60, 80, 0.1);
@@ -70,14 +115,24 @@ st.markdown(
     .stApp, section[data-testid="stSidebar"] {
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     }
+
+    
     </style>
+    <!-- Custom Header -->
+    <h1 class="app-title">Sokyoku-Chat with multiple PDFs📚</h1>
+
+    <!-- Line with circles -->
+    <div class="line-with-circles">
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
     """,
     unsafe_allow_html=True
 )
 
 # Your Streamlit content
-st.title("Sokyoku-Chat with multiple PDFs:books:")
-st.text_input("What can I help with?")
+#st.title("Sokyoku-Chat with multiple PDFs:books:")
+st.text_input("",placeholder="What can i help with?")
 
 st.sidebar.header("Your Files")
 st.sidebar.file_uploader("Upload your files")
