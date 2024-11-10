@@ -1,6 +1,5 @@
 import streamlit as st
 
-# Set the page configuration
 st.set_page_config(page_title="Sokyoku-Chat with multiple PDFs", page_icon="🤖")
 
 # Custom CSS for the frosted, translucent effect on the main area and sidebar
@@ -133,8 +132,8 @@ st.markdown(
 # Your Streamlit content
 #st.title("Sokyoku-Chat with multiple PDFs:books:")
 st.text_input("",placeholder="What can i help with?")
-
-st.sidebar.header("Your Files")
-st.sidebar.file_uploader("Upload your files")
-st.sidebar.button("Process")
+with st.sidebar:
+    st.sidebar.header("Your Files")
+    st.sidebar.file_uploader("Upload your files")
+    st.sidebar.button("Process")
 st.button("main area")
