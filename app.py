@@ -1,9 +1,7 @@
 import streamlit as st
 from dotenv import load_dotenv
-from PyPDF2 import PdfReader
-from scripts.extractor import extract_text
-
-
+from scripts.extractor import text_extractor
+from scripts.chunks import get_text_chunks
 
 def main():
     load_dotenv()
@@ -140,18 +138,18 @@ def main():
     #st.title("Sokyoku-Chat with multiple PDFs:books:")
     st.text_input("",placeholder="What can i help with?")
     with st.sidebar:
-        st.sidebar.header("Your Files")
-        pdfs = st.sidebar.file_uploader("Upload your files",accept_multiple_files=True)
-        st.sidebar.button("Process")
-        if st.button("main area"):
-            with st.spinner:
-                # get PDFs 
-                raw_text = extract_text(pdfs)
-                # get text chunks
+        st.header("Your Files")
+        pdfs = st.file_uploader("Upload your files", accept_multiple_files=True, type="pdf")
 
-
-                # create vector storage
-
+        if st.button("Process"):
+            if pdfs:
+                with st.spinner("Processing..."):
+                    # Extract text from PDFs
+                    raw_text = text_extractor(pdfs)
+                    
+                    # Get text chunks 
+                    text_chunks = get_text_chunks(raw_text)
+                    st.write(text_chunks)
 
 if __name__ == "__main__":
     main()
