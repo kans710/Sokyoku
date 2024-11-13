@@ -2,6 +2,8 @@ import streamlit as st
 from dotenv import load_dotenv
 from scripts.extractor import text_extractor
 from scripts.chunks import get_text_chunks
+#from scripts.openai_embeddings import get_vectorstore
+from scripts.instructor_embeddings import get_vectorstore
 
 def main():
     load_dotenv()
@@ -149,7 +151,11 @@ def main():
                     
                     # Get text chunks 
                     text_chunks = get_text_chunks(raw_text)
-                    st.write(text_chunks)
+                    
+                    # vector store
+
+                    vectorstore = get_vectorstore(text_chunks)
+                    print('done succesfully')
 
 if __name__ == "__main__":
     main()
