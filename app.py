@@ -4,6 +4,9 @@ from scripts.extractor import text_extractor
 from scripts.chunks import get_text_chunks
 #from scripts.openai_embeddings import get_vectorstore
 from scripts.instructor_embeddings import get_vectorstore
+from scripts.conversation_chain import get_conversation_chain
+from chat_template import css,bot_template,user_template
+
 
 def main():
     load_dotenv()
@@ -135,10 +138,19 @@ def main():
         """,
         unsafe_allow_html=True
     )
+    st.markdown(css, unsafe_allow_html=True)
 
-    # Your Streamlit content
+    if "conversation" not in st.session_state:
+        st.session_state.conversation = None
     #st.title("Sokyoku-Chat with multiple PDFs:books:")
+    st.markdown(user_template.replace("{{MSG}}", "Hello robot"), unsafe_allow_html=True)
+    st.markdown(bot_template.replace("{{MSG}}", "Hello kans!"), unsafe_allow_html=True)
+
+
+
     st.text_input("",placeholder="What can i help with?")
+
+
     with st.sidebar:
         st.header("Your Files")
         pdfs = st.file_uploader("Upload your files", accept_multiple_files=True, type="pdf")
@@ -155,7 +167,11 @@ def main():
                     # vector store
 
                     vectorstore = get_vectorstore(text_chunks)
-                    print('done succesfully')
+                    
+                    # conversation chain
+
+                    st.session_state.conversation =  get_conversation_chain(vectorstore)
+
 
 if __name__ == "__main__":
     main()
