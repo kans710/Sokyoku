@@ -8,6 +8,8 @@ from scripts.conversation_chain import get_conversation_chain
 from chat_template import css,bot_template,user_template
 
 
+
+
 def main():
     load_dotenv()
     st.set_page_config(page_title="Sokyoku-Chat with multiple PDFs", page_icon="🤖")
@@ -139,6 +141,9 @@ def main():
         unsafe_allow_html=True
     )
     st.markdown(css, unsafe_allow_html=True)
+    def handle_user_input(user_question):
+        response = st.session_state.conversation({"question": user_question})
+        st.write(response)
 
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
@@ -148,7 +153,9 @@ def main():
 
 
 
-    st.text_input("",placeholder="What can i help with?")
+    user_question = st.text_input("ask",placeholder="What can i help with?")
+    if user_question:
+        handle_user_input(user_question)
 
 
     with st.sidebar:

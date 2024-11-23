@@ -1,10 +1,8 @@
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import FAISS
+from langchain.embeddings import HuggingFaceInstructEmbeddings
+from langchain.vectorstores import FAISS
 
 def get_vectorstore(text_chunks):
-    # Create an embedding object compatible with FAISS
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     
-    # Pass this embedding object to FAISS, which will embed documents as needed
-    vectorstore = FAISS.from_texts(text_chunks, embedding=embeddings)
+    embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
+    vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vectorstore
